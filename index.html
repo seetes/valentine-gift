@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>For My Valentine ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: linear-gradient(to bottom, #ffdde1, #ee9ca7);
+      height: 100vh;
+      overflow: hidden;
+      color: #333;
+    }
+
+    h1, h2, p {
+      padding: 0 15px;
+    }
+
+    button {
+      padding: 15px 25px;
+      font-size: 18px;
+      border: none;
+      border-radius: 30px;
+      background-color: #ff4d6d;
+      color: white;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    input {
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 20px;
+      border: none;
+      text-align: center;
+      width: 70%;
+      max-width: 250px;
+    }
+
+    #lockScreen, #content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+    }
+
+    .heart {
+      position: absolute;
+      color: red;
+      animation: float 6s linear infinite;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 🎶 Romantic Music -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+  <!-- 🔐 Password Screen -->
+  <div id="lockScreen">
+    <h2>🔒 Just for You</h2>
+    <p>Hint: Our special word ❤️</p>
+    <input
+      type="password"
+      id="passwordInput"
+      placeholder="Enter password"
+      onkeydown="if(event.key==='Enter') unlock()"
+    >
+    <br>
+    <button onclick="unlock()">Unlock 💖</button>
+  </div>
+
+  <!-- 💖 Main Content -->
+  <div id="content" style="display:none;">
+    <h1>Hey My Love Barsha❤️</h1>
+    <p>I choose you today, tomorrow, and for the rest of my life.</p>
+
+    <button onclick="showLove()">My promise to you 💍</button>
+    <p id="message"></p>
+  </div>
+
+  <script>
+  const correctPassword = "iloveyou";
+  let heartsStarted = false;
+
+  function unlock() {
+    const input = document.getElementById("passwordInput").value.trim();
+
+    if (input === correctPassword) {
+      document.getElementById("lockScreen").style.display = "none";
+      document.getElementById("content").style.display = "block";
+    } else {
+      alert("Oops 😅 Try again, my love ❤️");
+    }
+  }
+
+  function showLove() {
+    // 💖 Show message
+    document.getElementById("message").innerHTML =
+      "As long as I breathe, my love belongs to you ❤️";
+
+    // 🎶 PLAY MUSIC (100% MOBILE SAFE)
+    const music = document.getElementById("bgMusic");
+    music.volume = 0;
+
+    music.play().then(() => {
+      console.log("Music started 🎶");
+    }).catch(err => {
+      alert("Tap once more to start music 🎶");
+      console.log(err);
+    });
+
+    // 💕 Start hearts only once
+    if (!heartsStarted) {
+      startHearts();
+      heartsStarted = true;
+    }
+  }
+
+  function startHearts() {
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = Math.random() * 20 + 15 + "px";
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 6000);
+    }, 300);
+  }
+</script>
+</body>
+</html>
